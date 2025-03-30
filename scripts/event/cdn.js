@@ -10,6 +10,7 @@ const path = require("path");
 
 hexo.extend.filter.register("before_generate", () => {
   const themeConfig = hexo.theme.config;
+  // console.log('hexo.theme.config: ', hexo.theme.config)
   const { CDN } = themeConfig;
   const name = "hexo-theme-solitude";
 
@@ -17,6 +18,15 @@ hexo.extend.filter.register("before_generate", () => {
     path: path.join(hexo.theme_dir, "/plugins.yml"),
     engine: "yaml",
   });
+
+  // console.log('hexo: ', hexo)
+  var icons = hexo.render.renderSync({
+    path: path.join(hexo.theme_dir, "_data/icons.yml"),
+    engine: "yaml",
+  });
+  // console.log('icons: ', hexo.theme.config)
+  hexo.theme.config.icons = icons
+
   const internalSrc = {
     main: { name, file: "js/main.js", version },
     utils: { name, file: "js/utils.js", version },
@@ -95,6 +105,7 @@ hexo.extend.filter.register("before_generate", () => {
   themeConfig.cdn = Object.assign(
     createCDNLink(internalSrc, CDN.internal, "internal"),
     createCDNLink(thirdPartySrc, CDN.third_party),
+    // createCDNLink(icons, CDN.icons),
     deleteNullValue(CDN.options)
   );
 });

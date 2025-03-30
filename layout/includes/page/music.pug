@@ -9,3 +9,4 @@ if theme.music.enable
             if (typeof initializeMusicPlayer === "undefined") await utils.getScript('!{url_for(theme.cdn.music_js)}').then(() => initializeMusicPlayer())
             else initializeMusicPlayer()
         })()
+

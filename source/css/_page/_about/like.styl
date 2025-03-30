@@ -1,8 +1,30 @@
 #about-page
-  .author-content-item.like-technology
+  .author-content-item.anime
     background-size cover
-    min-height 230px
+    min-height 400px
     color var(--efu-white)
+
+    .like-content
+      height 77%
+      width 100%
+      overflow hidden
+      position relative
+      display flex
+      justify-content center
+
+      .author-content-item-title-scroll
+        // height 100%
+        width 60%
+        display flex
+        flex-direction column
+        // scrollbar-width: none
+        position absolute
+        animation anime 3s linear infinite normal
+
+        .author-content-item-title
+          padding 0.2rem
+          margin-bottom 0
+          // writing-mode vertical-lr
 
     &::after
       box-shadow 0 -69px 203px 11px #050b20 inset
@@ -12,15 +34,35 @@
       height 100%
       top 0
       left 0
-
-  .author-content-item.like-music
+  .author-content-item.music
     background-size cover
     min-height 400px
     color var(--efu-white)
-    overflow hidden
+
+    .like-content
+      height 77%
+      width 100%
+      overflow hidden
+      position relative
+      display flex
+      justify-content center
+
+      .author-content-item-title-scroll
+        // height 100%
+        width 60%
+        display flex
+        flex-direction column
+        // scrollbar-width: none
+        position absolute
+        animation music 3s linear infinite normal
+
+        .author-content-item-title
+          padding 0.2rem
+          margin-bottom 0
+          // writing-mode vertical-lr
 
     &::after
-      box-shadow 0 -69px 203px 11px #0e0e0e inset
+      box-shadow 0 -69px 203px 11px #050b20 inset
       position absolute
       content ''
       width 100%

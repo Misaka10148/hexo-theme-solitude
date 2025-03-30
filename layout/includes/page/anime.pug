@@ -1,0 +1,5 @@
+if theme.anime.enable
+    #Anime-page
+        meting-js(vmid=theme.anime.vmid server=theme.music.server type=theme.music.type mutex=theme.music.mutex ? "true" : "false" volume=theme.music.volume preload="none" data-lrctype="0" order=theme.music.order)
+    .Anime-loading
+        div 追番加载中...

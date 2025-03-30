@@ -4,14 +4,17 @@ if menu
     .menus_items
         each value, label in menu
             .menus_item
+                //- - console.log('valueType:', typeof value);
                 if typeof value !== 'object'
-                    a.site-page(href=url_for(value))
+                    //- - console.log('valueType:', value.split('||')[0]);
+                    a.site-page(href=url_for(value.split(' ')[0]))
                         span= label
                 else
                     a.site-page(href="javascript:void(0);")
                         span= label
                     ul.menus_item_child
                         each childValue, childLabel in value
+                            //- - console.log('childValue:', childValue);
                             li
                                 - var array = childValue.split('||')
                                 a.site-page.child(href=url_for(trim(array[0])))

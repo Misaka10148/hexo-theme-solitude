@@ -1,0 +1,100 @@
+- const likes = site.data.about.like
+if likes
+    .author-content
+        each like in likes
+            .author-content-item(class=like.type, style=`background: url(${like.bg}) no-repeat center; background-size: cover;`)
+                .card-content(style=`justify-content: space-between;`)
+                    .author-content-item-tips= like.tips
+                    .like-content
+                        // 添加自定义属性 data-like-type 存储 like.type 的值
+                        .author-content-item-title-scroll(id=`${like.type}`, data-like-type=like.type)
+                            each title in like.title
+                                .author-content-item-title= title
+                            //- each title in like.title
+                            //-     .author-content-item-title= title
+                        //- 下面的console.log可以正常获取到id
+                        //- - console.log('id:', like.type);
+                        script.
+                            // 等待 DOM 加载完成后执行
+                            document.addEventListener('DOMContentLoaded', function() {
+                                // 获取 类名为like-content的div元素的高度
+                                const likeContentHeight = document.querySelector('.like-content').offsetHeight;
+                                //获取id为`{like.type}`的元素
+                                const scrollList = #{like.type};
+                                //- console.log('scrollList:', scrollList);
+                                if (scrollList) {
+                                    // 获取 scrollList 内所有类名为 author-content-item-title 的元素
+                                    const titleElements = scrollList.querySelectorAll('.author-content-item-title');
+                                    //- console.log('titleElements:', titleElements);
+                                    // 定义一个变量来存储所有 title 元素的高度总和
+                                    var sumHeight = 0;
+                                    //定义一个数组用来存放titleElements的高度
+                                    var titleHeights = [];
+
+                                    titleElements.forEach((element) => {
+                                        // 获取元素的高度并计算总和存储,高度和大于容器like-content的高度时,设置对应的滚动距离，否则为0
+                                        sumHeight += element.offsetHeight;
+                                        titleHeights.push(element.offsetHeight);
+                                        //打印每一个element
+                                        //- console.log('element:', element);
+                                    });
+                                    //- console.log('titleElements的高度:', titleHeights);
+                                    //- console.log('title元素的高度和:', sumHeight);
+                                    // 定义一个变量来存储滚动距离
+                                    var scrollDistance = 0;
+                                    if (sumHeight > likeContentHeight) {
+                                        scrollDistance = -(sumHeight);
+                                        //向id为`{like.type}`的元素添加新的子元素
+                                        titleElements.forEach((element) => {
+                                            //将每一个title元素的内容添加到scrollList中
+                                            scrollList.appendChild(element.cloneNode(true));
+                                        });
+                                    }
+                                    else {
+                                        // 设置滚动距离为0
+                                        scrollDistance = 0;
+                                    }
+                                    // 打印滚动距离
+                                    //- console.log('滚动距离:', scrollDistance);
+                                    //将id为`{like.type}`的元素的滚动距离设置为scrollDistance
+                                    scrollList.style.setProperty('--scrollDistance', scrollDistance + 'px');
+                                    // 打印 titleElements 的长度
+                                    //- console.log('titleElements的长度:', titleElements.length);
+                                    // 计算动画持续时间,单位为秒,每个title元素的动画持续时间为2s
+                                    const animationDuration = titleElements.length * 1;
+                                    // 打印动画持续时间
+                                    console.log('动画持续时间:', animationDuration);
+                                    //将id为`{like.type}`的元素的滚动动画持续时间设置为animationDuration秒
+                                    scrollList.style.setProperty('animation-duration', animationDuration + 's');
+                                    // 从自定义属性中获取 like.type 的值
+                                    const likeType = scrollList.getAttribute('data-like-type');
+                                    // 打印 like.type 的值
+                                    //- console.log('like.type的值:', likeType);
+                                    //添加`keyframes动画`到id为`{like.type}`的元素
+                                    const style = document.createElement('style');
+                                    // 使用 likeType 作为动画名称
+                                    style.textContent = `
+                                        @keyframes ${likeType} {
+                                            0% {
+                                                top: 0;
+                                                //- left: 0;
+                                            }
+                                            100% {
+                                                top: var(--scrollDistance);
+                                                //- left: var(--scrollDistance);
+                                            }
+                                        }
+                                    `;
+                                    document.head.appendChild(style);
+                                }
+                            });
+                    .content-bottom
+                        .tips= like.subtips
+                        if like.button
+                            .banner-button-group
+                                a.banner-button(href=url_for(like.button_link))
+                                    i.solitude.fas.fa-circle-chevron-right
+                                    span.banner-button-text= like.button_text
+    //- 下面的console.log可以正常获取到likes的长度
+    //- script.
+    //-     console.log('likes的长度:', #{likes.length});

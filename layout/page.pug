@@ -3,25 +3,39 @@ extends includes/layout.pug
 block content
     main.layout#content-inner(class=page.aside ? '' : 'hide-aside')
         #page
+            //- - console.log('page.type:', page.type)
             case page.type
+                //-  页面类型为分类页
                 when 'categories'
                     include includes/page/categories
+                //-  页面类型为标签页
                 when 'tags'
                     include includes/page/tags
+                //-  页面类型为链接页
                 when 'links'
                     include includes/page/links
+                //-  页面类型为关于页
                 when 'about'
                     include includes/page/about
+                //-  页面类型为简介页
                 when 'brevity'
                     include includes/page/brevity
+                //-  页面类型为归档页
                 when 'kit'
                     include includes/page/kit
+                //-  页面类型为音乐页
+                when 'anime'
+                    include includes/page/anime
+                //-  页面类型为音乐页
                 when 'music'
                     include includes/page/music
+                //-  页面类型为留言页，undefined
                 when 'message'
                     !=partial('includes/page/message', {}, {cache: true})
+                //-  页面类型为最近评论页，undefined
                 when 'recentcomment'
                     !=partial('includes/page/recentcomment', {}, {cache: true})
+                //-  页面类型为搜索页
                 when 'banner'
                     include includes/widgets/page/banner
                     if page.container

@@ -62,16 +62,17 @@ if tj || oneself
             .author-content-item-group.column.mapAndInfo
                 .author-content-item.map.single
                     span.map-title=_p('about.other.oneself.map_title') + oneself.location
-                .author-content-item.selfInfo.single
-                    div
-                        span.selfInfo-title=_p('about.other.oneself.info_title1')
-                        span.selfInfo-content(style="color: #43a6c6;")= oneself.birthYear
-                    div
-                        span.selfInfo-title= oneself.university
-                        span.selfInfo-content(style="color: #c69043;")= oneself.major
-                    div
-                        span.selfInfo-title=_p('about.other.oneself.info_title2')
-                        span.selfInfo-content(style="color: #b04fe6;")= oneself.occupation
+                if oneself.info.enable
+                    .author-content-item.selfInfo.single
+                        div
+                            span.selfInfo-title=_p('about.other.oneself.info_title1')
+                            span.selfInfo-content(style="color: #43a6c6;")= oneself.birthYear
+                        div
+                            span.selfInfo-title= oneself.university
+                            span.selfInfo-content(style="color: #c69043;")= oneself.major
+                        div
+                            span.selfInfo-title=_p('about.other.oneself.info_title2')
+                            span.selfInfo-content(style="color: #b04fe6;")= oneself.occupation
 
 - var cause = site.data.about.cause
 

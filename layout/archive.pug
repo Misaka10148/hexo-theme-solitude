@@ -3,7 +3,9 @@ extends includes/layout.pug
 block content
     main.layout#content-inner
         #archive
+            #posts-chart(data-start="2025-01" style="border-radius: 8px; height: 300px; padding: 10px;")
             .article-sort-title #{__('page.archives')}<sup>#{site.posts.find({parent: {$exists: false}}).length}</sup>
+            //- - console.log('theme.page.archives:', theme.page.archives);
             case theme.page.archives
                 when 0
                     .article-sort
@@ -16,4 +18,18 @@ block content
                         include includes/mixins/pagination
                     if theme.comment.hot_tip.enable
                         include ./includes/widgets/third-party/hot/index.pug
+            script.
+                // 打印 currentText 的值
+                console.log('当前页数:', document.querySelector('#pagination .current').textContent);
+                        //当currentText不为'1'时,删除id为`posts-chart`的元素
+                if (document.querySelector('#pagination .current').textContent !== '1') {
+                    // 获取 id 为 `posts-chart` 的元素
+                    const postsChart = document.getElementById('posts-chart');
+                    // 打印 postsChart 的值
+                    //- console.log('非文章的首页,删除postsChart');
+                    // 如果 postsChart 存在，则移除它
+                    if (postsChart) {
+                        postsChart.remove();
+                    }
+                }
         include includes/widgets/aside/aside
